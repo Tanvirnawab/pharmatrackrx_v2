@@ -21,7 +21,12 @@ target_metadata = Base.metadata
 
 def get_url():
     from app.core.config import settings
-    return settings.database_url
+    return settings.sqlalchemy_database_url
+
+
+def get_connect_args():
+    from app.core.config import settings
+    return settings.asyncpg_connect_args
 
 
 def run_migrations_offline() -> None:
@@ -54,6 +59,7 @@ async def run_async_migrations() -> None:
         configuration,
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
+        connect_args=get_connect_args(),
     )
     async with connectable.connect() as connection:
         await connection.run_sync(do_run_migrations)

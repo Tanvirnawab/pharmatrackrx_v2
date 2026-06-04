@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# VS Code
+.vscode/
+
+# Pytest
+.pytest_cache/
+
+# Alembic
+alembic/__pycache__/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+
+# Build artifacts
+dist/
+build/
+
+# Docker volumes/data
+postgres_data/
+redis_data/
+minio_data/
+
+# Secrets
+*.pem
+*.key
+*.crt

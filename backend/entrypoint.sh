@@ -7,14 +7,13 @@ echo "========================================="
 
 echo "[1/3] Waiting for database..."
 until python -c "
-import asyncio, asyncpg, os, sys
+import asyncio, asyncpg, sys
+from app.core.config import settings
 
 async def check():
-    url = os.environ.get('DATABASE_URL', '')
-    # convert sqlalchemy URL to asyncpg URL
-    url = url.replace('postgresql+asyncpg://', 'postgresql://')
+    url = settings.sqlalchemy_database_url.replace('postgresql+asyncpg://', 'postgresql://')
     try:
-        conn = await asyncpg.connect(url)
+        conn = await asyncpg.connect(url, **settings.asyncpg_connect_args)
         await conn.close()
         print('Database is ready.')
     except Exception as e:
@@ -31,4 +30,4 @@ alembic upgrade head
 echo "       Migrations complete."
 
 echo "[3/3] Starting server..."
-exec uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+exec uvicorn app.main:app --host 0.0.0.0 --port 8000

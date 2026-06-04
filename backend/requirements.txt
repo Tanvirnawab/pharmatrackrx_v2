@@ -22,3 +22,4 @@ xlsxwriter==3.2.0
 python-dateutil==2.9.0
 Pillow==10.3.0
 pytesseract==0.3.13
+gunicorn
